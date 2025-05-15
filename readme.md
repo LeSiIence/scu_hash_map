@@ -37,6 +37,7 @@
 - debug改进
 - 将.h的实现移动到cpp里
 
-### 5.14更改
+### 5.14更改（gnx）
 - `5.xx.xx.xx.xx.h`:更名为`hashmap_custom.h`,随后更改相关文件包含
 - 认为可以弃用hashmap.cpp 模板类实现应该在头文件里？ 暂时挪到`\tmp`
+- 推到了github私有repo上，另外放弃了我本地的版本，跑不起来。仓库地址：https://github.com/LeSiIence/scu_hash_map
