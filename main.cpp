@@ -1,66 +1,108 @@
-//main.cpp
 #include "hashmap_custom.h"
 #include <iostream>
-#include <string>
+#include <cstdlib>
+#include <ctime>
+
+using namespace std;
+
+// Function to display the menu
+void displayMenu() {
+    cout << "\n--- HashMap Test Menu ---" << endl;
+    cout << "1. Insert Key-Value Pair" << endl;
+    cout << "2. Find Value by Key" << endl;
+    cout << "3. Check if Key Exists" << endl;
+    cout << "4. Remove Key" << endl;
+    cout << "5. Display HashMap" << endl;
+    cout << "6. Run Random Data Test" << endl;
+    cout << "7. Exit" << endl;
+    cout << "Enter your choice: ";
+}
 
 int main() {
-    // 测试默认构造函数
-    HashMap<int, std::string> map1;
-    std::cout << "Testing default constructor: " << std::endl;
-    std::cout << "Size: " << map1.size() << ", Empty: " << (map1.empty()? "true" : "false") << std::endl;
+    HashMap<string, int> hashmap;
 
-    // 测试带参数的构造函数
-    HashMap<int, std::string> map2(5);
-    std::cout << "\nTesting constructor with bucket count: " << std::endl;
-    std::cout << "Size: " << map2.size() << ", Bucket count: " << map2.bucket_count() << ", Load factor: " << map2.load_factor() << std::endl;
+    int choice;
+    string key;
+    int value;
 
-    // 测试插入操作
-    map2.insert({1, "Alice"});
-    map2.insert({2, "Bob"});
-    std::cout << "\nTesting insert operation: " << std::endl;
-    std::cout << "Size: " << map2.size() << ", Contains key 1: " << (map2.contains(1)? "true" : "false") << ", Contains key 3: " << (map2.contains(3)? "true" : "false") << std::endl;
+    srand(static_cast<unsigned int>(time(0))); // Seed for random number generation
 
-    // 测试at操作
-    try {
-        std::cout << "Value for key 1: " << map2.at(1) << std::endl;
-        // 测试不存在的键
-        std::cout << "Value for key 3: " << map2.at(3) << std::endl;
-    } catch (const std::out_of_range& e) {
-        std::cout << "Caught out_of_range exception: " << e.what() << std::endl;
-    }
+    do {
+        displayMenu();
+        cin >> choice;
 
-    // 测试[]操作符
-    map2[3] = "Charlie";
-    std::cout << "\nTesting [] operator: " << std::endl;
-    std::cout << "Value for key 3: " << map2[3] << std::endl;
+        switch (choice) {
+            case 1:
+                cout << "Enter key (string): ";
+                cin >> key;
+                cout << "Enter value (int): ";
+                cin >> value;
+                hashmap[key] = value;
+                cout << "Inserted (" << key << ", " << value << ")" << endl;
+                break;
 
-    // 测试find操作
-    auto iter = map2.find(2);
-    if (iter != map2.end()) {
-        std::cout << "Found key 2, value: " << iter->second << std::endl;
-    } else {
-        std::cout << "Key 2 not found" << std::endl;
-    }
+            case 2:
+                cout << "Enter key to find (string): ";
+                cin >> key;
+                try {
+                    cout << "Value for key '" << key << "' is: " << hashmap.at(key) << endl;
+                } catch (const out_of_range& e) {
+                    cout << "Error: Key not found!" << endl;
+                }
+                break;
 
-    // 测试erase操作
-    bool erased = map2.erase(2);
-    std::cout << "\nTesting erase operation: " << std::endl;
-    std::cout << "Erased key 2: " << (erased? "true" : "false") << ", Size: " << map2.size() << std::endl;
+            case 3:
+                cout << "Enter key to check (string): ";
+                cin >> key;
+                if (hashmap.contains(key)) {
+                    cout << "Key '" << key << "' exists." << endl;
+                } else {
+                    cout << "Key '" << key << "' does not exist." << endl;
+                }
+                break;
 
-    // 测试rehash操作
-    map2.rehash(10);
-    std::cout << "\nTesting rehash operation: " << std::endl;
-    std::cout << "New bucket count: " << map2.bucket_count() << ", Load factor: " << map2.load_factor() << std::endl;
+            case 4:
+                cout << "Enter key to remove (string): ";
+                cin >> key;
+                if (hashmap.erase(key)) {
+                    cout << "Key '" << key << "' removed successfully." << endl;
+                } else {
+                    cout << "Key '" << key << "' not found. Removal failed." << endl;
+                }
+                break;
 
-    // 测试clear操作
-    map2.clear();
-    std::cout << "\nTesting clear operation: " << std::endl;
-    std::cout << "Size: " << map2.size() << ", Empty: " << (map2.empty()? "true" : "false") << std::endl;
+            case 5:
+                cout << "Current HashMap:" << endl;
+                hashmap.debug();
+                break;
 
-    // 测试debug函数
-    map2.insert({4, "David"});
-    std::cout << "\nTesting debug function: " << std::endl;
-    map2.debug();
+            case 6: {
+                const int testSize = 10; // Number of random entries to insert
+                cout << "Running random data test with " << testSize << " entries..." << endl;
+                for (int i = 0; i < testSize; ++i) {
+                    key = "key" + to_string(rand() % 100); // Generate a random key
+                    value = rand() % 100;                 // Generate a random value
+                    hashmap[key] = value;
+                    cout << "Inserted (" << key << ", " << value << ")" << endl;
+                }
+
+                cout << "\nFinal HashMap after random insertion:" << endl;
+                hashmap.debug();
+
+                cout << "Clearing HashMap after test..." << endl;
+                hashmap.clear();
+                break;
+            }
+
+            case 7:
+                cout << "Exiting program. Goodbye!" << endl;
+                break;
+
+            default:
+                cout << "Invalid choice. Please try again." << endl;
+                break;
+        }
+    } while (choice != 7);
 
     return 0;
 }

@@ -591,7 +591,7 @@ public:
             std::cout << "Bucket " << i << ": ";
             node* current = _buckets_array[i];
             while (current != nullptr) {
-                std::cout << current->value.first << " -> ";
+                std::cout << "("<< current->value.first <<","<<  current->value.second<<")" << " -> ";
                 current = current->next;
             }
             std::cout << "nullptr" << std::endl;
@@ -617,7 +617,11 @@ public:
      * Complexity: O(N), where N = std::distance(first, last);
      */
     template <typename InputIt>
-    HashMap(InputIt first, InputIt last, size_t bucket_count = kDefaultBuckets, const H& hash = H());
+    HashMap(InputIt first, InputIt last, size_t bucket_count = kDefaultBuckets, const H& hash = H()): _size(0), _hash_function(hash), _buckets_array(bucket_count, nullptr) {
+	    for (auto it = first; it != last; ++it) {
+	    	insert(*it);
+	    }
+    }
 
     /*
      * Initializer list constructor
@@ -637,7 +641,7 @@ public:
      *
      * Also, you should check out the delegating constructor note in the .cpp file.
      */
-    HashMap(std::initializer_list<value_type> init, size_t bucket_count = kDefaultBuckets, const H& hash = H());
+    HashMap(std::initializer_list<value_type> init, size_t bucket_count = kDefaultBuckets, const H& hash = H()): HashMap(init.begin(), init.end(), bucket_count, hash) {}
 
     /*
      * Indexing operator
