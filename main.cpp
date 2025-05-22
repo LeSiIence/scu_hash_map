@@ -37,7 +37,8 @@ int main() {
                 cin >> key;
                 cout << "Enter value (int): ";
                 cin >> value;
-                hashmap[key] = value;
+                //hashmap[key] = value;
+                hashmap.insert(std::make_pair(key, value));
                 cout << "Inserted (" << key << ", " << value << ")" << endl;
                 break;
 
@@ -82,7 +83,7 @@ int main() {
                 for (int i = 0; i < testSize; ++i) {
                     key = "key" + to_string(rand() % 100); // Generate a random key
                     value = rand() % 100;                 // Generate a random value
-                    hashmap[key] = value;
+                    hashmap.insert(std::make_pair(key, value));
                     cout << "Inserted (" << key << ", " << value << ")" << endl;
                 }
 

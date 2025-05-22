@@ -76,9 +76,6 @@ void run_benchmark(int choice, size_t max_count) {
 
         for (int j = 0; j < times; ++j) {
             HashMap<K, M> map(initial_buckets);
-            if (choice != 1) {
-                test_insert_speed(map, data, count);
-            }
 
             auto start = std::chrono::high_resolution_clock::now();
 

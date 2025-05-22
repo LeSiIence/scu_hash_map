@@ -72,12 +72,6 @@ load factor的问题可能源于hashmap无参构造函数，`_size`的初始值�
 
 
 
-# TODO LIST here
- - 无法插入十万个元素，原因未知
-
-
-
-
 ---
 以下是正式的readme
 # HashMap 模板类实现

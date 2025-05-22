@@ -91,7 +91,7 @@ public:
     *
     * Complexity: O(B), B = number of buckets
     */
-    HashMap():_hash_function(H()),_size(kDefaultBuckets),_buckets_array(kDefaultBuckets, nullptr){}//默认构造函数
+    HashMap():_hash_function(H()),_size(0),_buckets_array(kDefaultBuckets, nullptr){}//默认构造函数
 
     /*
     * Constructor with bucket_count and hash function as parameters.
@@ -362,6 +362,11 @@ public:
     */
     //插入函数
     std::pair<iterator, bool> insert(const value_type& value){
+        //自动扩容
+        if(load_factor()>0.75){
+            std::cout<<"rehash"<<std::endl;
+            rehash(bucket_count()*2);
+        }
             // 计算键值对的哈希值，并确定其在桶数组中的索引
         size_t index = _hash_function(value.first) % _buckets_array.size();
         node* current = _buckets_array[index];
