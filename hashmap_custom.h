@@ -364,7 +364,6 @@ public:
     std::pair<iterator, bool> insert(const value_type& value){
         //自动扩容
         if(load_factor()>0.75){
-            std::cout<<"rehash"<<std::endl;
             rehash(bucket_count()*2);
         }
             // 计算键值对的哈希值，并确定其在桶数组中的索引
@@ -663,6 +662,9 @@ public:
      * Complexity: O(1) average case amortized plus complexity of K and M's constructor
      */
     M& operator[](const K& key){
+        if(load_factor() > 0.75){
+            rehash(bucket_count() * 2);
+        }
         // 计算键的哈希值，并确定其在桶数组中的索引
         size_t index = _hash_function(key) % _buckets_array.size();
         node* current = _buckets_array[index];
