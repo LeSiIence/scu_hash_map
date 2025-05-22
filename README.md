@@ -1,5 +1,5 @@
 # 🧠 HashMap 模板类实现（SCU 大作业项目）
-！[scu_logo](./asset/logo.png)
+![scu_logo](./asset/logo.png)
 [![MIT License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 [![C++](https://img.shields.io/badge/language-C%2B%2B17-blue.svg)](https://en.cppreference.com/)
 [![GitHub Repo](https://img.shields.io/badge/repo-private-lightgrey)](https://github.com/LeSiIence/scu_hash_map)
