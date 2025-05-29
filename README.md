@@ -52,6 +52,9 @@ g++ -std=c++17 -O2 main.cpp -o hashmap_test
 ├── main.cpp                 # 基本交互测试
 ├── benchmark.cpp            # 插入性能测试
 ├── /tmp                     # 中间/废弃文件存放
+├── /asset                   # 图片资源
+├── report.tex               # 报告正文
+├── report.pdf               # 报告正文
 └── README.md
 ```
 
