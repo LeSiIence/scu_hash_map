@@ -24,7 +24,7 @@ std::vector<std::pair<K, M>> generate_random_pairs(size_t count, K min_key, K ma
 template <typename K, typename M>
 void test_insert_speed(HashMap<K, M>& map, const std::vector<std::pair<K, M>>& pairs, size_t count) {
     for (size_t i = 0; i < count; ++i) {
-        map.insert(pairs[i]);
+         map[pairs[i].first] = pairs[i].second;
     }
 }
 
