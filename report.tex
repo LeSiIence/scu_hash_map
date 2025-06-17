@@ -4,6 +4,7 @@
 \usepackage{color}
 \usepackage{xcolor}
 \usepackage{hyperref}
+\usepackage{graphicx}
 \usepackage[a4paper, margin=1.5cm]{geometry}
 % 设置 listings 参数
 \lstset{
@@ -100,6 +101,18 @@ HashMap is a very practical data structure that maps keys to storage locations u
 
 本实验设计的 HashMap 使用链地址法处理冲突，底层使用一个动态数组（vector）保存桶（bucket），每个桶是一个键值对链表。HashMap 使用模板参数支持自定义键类型、值类型和哈希函数，使其具有良好的通用性。
 
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.4\textwidth]{asset/hashmap_structure.png}
+    \caption{两种 HashMap 不同实现的结构示意图}
+\end{figure}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.4\textwidth]{asset/our_hashmap.png}
+    \caption{本项目所实现的 HashMap 结构示意图}
+\end{figure}
+
 \begin{itemize}
     \item \textbf{数据结构}：使用 \texttt{std::vector<std::list<Node>>} 存储桶数组。每个 \texttt{Node} 结构包含键、值、状态等信息。
     \item \textbf{哈希函数}：使用模板参数 H，默认采用 \texttt{std::hash<K>}，用户可以自定义或使用 lambda。
@@ -122,7 +135,7 @@ HashMap is a very practical data structure that maps keys to storage locations u
     \item \textbf{Resizing Strategy}: When the load factor exceeds a threshold (e.g., 0.75), automatically resizes to the next prime number size, triggering a rehash operation.
     \item \textbf{Exception Handling}: Failed lookups return end(), failed insertions return false. Uses assertions or exceptions for illegal operations to ensure safety.
 \end{itemize}
-\section{测试结果和分析}%注：尚未完成
+\section{测试结果和分析}
     在本实验中，我们对 HashMap 的基本功能进行了全面的测试，包括插入、删除、查找等操作。测试结果表明，HashMap 在处理大量数据时能够保持较高的性能，具体表现如下：
     \begin{enumerate}
         \item 在空哈希表上调用erase，find，无崩溃
@@ -149,7 +162,7 @@ HashMap is a very practical data structure that maps keys to storage locations u
 
     In summary, this experiment successfully implemented a high-performance HashMap, validated its functionality and performance through comprehensive testing, and future work will focus on further optimization and feature extension.
 
-\section{遇到的问题和解决方案}%需要完善
+\section{遇到的问题和解决方案}
     在实验过程中，我们遇到了一些问题，并提出了相应的解决方案：
     \begin{enumerate}
         \item 问题：在使用 Lambda 表达式作为哈希函数时，编译器可能无法正确推导类型。\\
